@@ -36,8 +36,13 @@ class PaginationResponse(JSONResponse):
         if page < 1 or page_size < 1:
             raise
 
+        # 获取分页响应数据
         total, results = self.get_paginated_response(data, page, page_size)
+
+        # 根据当前页码和页面大小计算是否有下一页
         has_next = True if math.ceil(total / page_size) > page else False
+
+        # 构建响应数据结构
         self.data = {
             "code": code,
             "msg": msg,
@@ -47,6 +52,8 @@ class PaginationResponse(JSONResponse):
             "has_next": has_next,
             "results": results,
         }
+
+        # 初始化基类，传入响应数据和状态码
         super().__init__(content=self.data, status_code=status_code)
 
 

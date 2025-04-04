@@ -7,7 +7,7 @@ router = APIRouter()
 from src.utils.common_response import APIResponse
 
 # 不同用户登录系统以后，看到的菜单是不一样的，这个菜单是根据用户的角色来的
-@router.get("/menus") # 这个接口需要登陆以后才能访问，因此我们使用依赖注入
+@router.get("/auth") # 这个接口需要登陆以后才能访问，因此我们使用依赖注入
 async def get_menus(
     # user:UserInfo = Depends(get_current_user)
     ):

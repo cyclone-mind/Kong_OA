@@ -65,7 +65,7 @@ class Menu(BaseModel): # 权限
     上级菜单id, 子菜单数目， 菜单类型， 菜单标题， 组件名称， 组件， 排序， 图标， 连接地址， 是否外链， 缓存， 隐藏
     权限
     """
-    pid = fields.ForeignKeyField(model_name='models.Menu', description='父菜单id', on_delete=fields.SET_NULL, null=True)
+    pid = fields.ForeignKeyField(model_name='models.Menu', description='父菜单id', on_delete=fields.SET_NULL, null=True,related_name='children')
     sub_count = fields.IntField(description='子菜单数目', null=True, blank=True)
     # 0 菜单，1 子菜单，2 按钮
     type = fields.IntField(description='菜单类型',  null=True)
@@ -92,7 +92,11 @@ class Dept(BaseModel):
     """
     id, 父部门id, 子部门数目, name,
     """
-    pid = fields.ForeignKeyField(model_name='models.Dept', description='父部门id', null=True,  on_delete=fields.SET_NULL)
+    # 对于查询到的一个异步查询集，也就是一个对象，我们
+    # 可以dept.pid--》去查询父级部门
+    # 可以 dept.pid_id--》去查询父级部门的id
+    # 可以 dept.children--》去查询子部门，也就是反向查询
+    pid = fields.ForeignKeyField(model_name='models.Dept', description='父部门id', null=True,  on_delete=fields.SET_NULL,related_name="children")
     sub_count = fields.IntField(null=True, description='子部门数量')
     name = fields.CharField(max_length=64, description='部门名', unique=True)
     enabled = fields.BooleanField(default=True, description='状态')

@@ -11,7 +11,7 @@ import Index from "../views/admin/Index.vue";
 // import Menu from '../views/admin/Menu.vue'
 // import Dept from '../views/admin/Dept.vue'
 import { definedMenus } from "../store/menus";
-import { reqMenus } from "../api/system";
+import { reqAuth } from "../api/system";
 
 const router = createRouter({
   // 使用 createWebHistory 创建 HTML5 历史模式的路由
@@ -96,7 +96,7 @@ function menuToRoute(menu) {
 async function reqMenusFunc() {
   let menusStore = definedMenus();
   // 发送请求获取动态菜单路由
-  let res = await reqMenus();
+  let res = await reqAuth();
   // 菜单列表套字典
   menusStore.setMenuList(res.nav);
   menusStore.setPermList(res.authoritys);

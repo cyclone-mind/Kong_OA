@@ -1,13 +1,13 @@
 from fastapi import Query
 from typing import Optional
-class PaginationQueryParams():
+class PaginationQueryParams:
     def __init__(self,
                  page:int=Query(default=1,description='页码'),
                  page_size:int=Query(default=5,description='每页数量',ge = 1, le = 10))->None:
         self.page = page
         self.page_size = page_size
 
-class UserQueryParams():
+class UserQueryParams:
     def __init__(
             self,
             username: Optional[str] = Query(None, description="用户名"),
