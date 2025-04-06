@@ -15,7 +15,11 @@ async def authenticate_user(username:str,password:str):
         return False
     if not user.check_password(password):
         return False
-    return user
+    # 用户是活跃的
+    if user.is_active:
+        return user
+    else:
+        return False
 
 # 签发token函数
 def create_access_token(data: dict,expires_delta:timedelta=None):

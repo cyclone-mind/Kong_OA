@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 class LoginException(Exception):
     def __init__(self, code: int = None, msg: str = None):
         self.code = code
-        self.msg = msg or '用户名或密码错误'
+        self.msg = msg or '用户名或密码错误' or "已经被锁定"
 
 
 class AuthException(Exception):

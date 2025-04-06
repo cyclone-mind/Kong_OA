@@ -246,12 +246,13 @@ async function Login() {
   if (loginForm.password && loginForm.username) {
     // 1.2 发送请求登录
     let res = await reqLogin(loginForm.username, loginForm.password);
-
+    console.log(res);
+    
     // 需要报错到cookie中---》如果用户没登录，访问任何页面都跳转都login
     $user.set_user({
-      username: res.data.username,
-      avatar: res.data.avatar,
-      token: res.data.token,
+      username: res.username,
+      avatar: res.avatar,
+      token: res.token,
     });
     // 1.3 如果正常走过来，说明登录成功--》跳转到首页
     $router.push("/index");

@@ -35,7 +35,7 @@ class UserInfo(BaseModel):
     # 用户和部门：一对多关系
     dept = fields.ForeignKeyField(model_name='models.Dept', description='用户和部门的关联表', on_delete=fields.SET_NULL, null=True)
     # 用户和岗位：多为多
-    jobs = fields.ManyToManyField(model_name="models.Job", description='用户和岗位的关联表', through="oa_user_jobs")
+    job = fields.ManyToManyField(model_name="models.Job", description='用户和岗位的关联表', through="oa_user_jobs")
     class Meta:
         table = 'OA_users'
 
@@ -75,11 +75,11 @@ class Menu(BaseModel): # 权限
     menu_sort = fields.IntField(description='菜单排序',  null=True)
     icon = fields.CharField(max_length=255,  null=True, description='菜单图标')
     path = fields.CharField(max_length=255,  null=True, description='菜单链接地址')
-    i_frame = fields.BooleanField(default=False, description='是否外链')
-    cache = fields.BooleanField(default=False, description='缓存')
-    hidden = fields.BooleanField(default=False, description='是否隐藏')
-    permission = fields.CharField(max_length=255, description='权限',  null=True)
-    is_menu = fields.BooleanField(default=False, description='是否是菜单')
+    i_frame = fields.BooleanField(default=False, description='是否外链', null=True)
+    cache = fields.BooleanField(default=False, description='缓存', null=True)
+    hidden = fields.BooleanField(default=False, description='是否隐藏', null=True)
+    permission = fields.CharField(max_length=255, description='权限', null=True)
+    is_menu = fields.BooleanField(default=False, description='是否是菜单', null=True)
 
     class Meta:
         table = 'oa_menu'

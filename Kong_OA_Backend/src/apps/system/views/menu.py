@@ -5,7 +5,7 @@ from fastapi import APIRouter
 
 from src.utils.common_response import APIResponse
 from ..models import Menu
-from ..schemas import MenuInSchema, MenuOutSchema
+from ..schemas import MenuInSchema, MenuOutSchema, MenuOutTreeSchema
 
 router = APIRouter()
 
@@ -34,8 +34,8 @@ async def delete_menu(
 ## 1 查询所有menu接口----不分页
 @router.get("/menus", description="查询所有菜单")
 async def get_menu_list():
-    menus = await Menu.filter().all()
-    menu_dicts = [MenuOutSchema.from_orm(menu).dict() for menu in menus]
+    menus = await Menu.filter(is_delete=False,pid=None).all().prefetch_related('children')
+    menu_dicts = [await MenuOutSchema.from_orm_recursive(menu) for menu in menus]
     return APIResponse(results=menu_dicts)
 
 
@@ -46,7 +46,7 @@ async def get_menu(
         # user: UserInfo = Depends(get_current_user)
 ):
     menu = await Menu.filter(id=menu_id).first()
-    menu_dict = MenuOutSchema.from_orm(menu).dict()
+    menu_dict = await MenuOutSchema.from_orm_recursive(menu)
     return APIResponse(result=menu_dict)
 
 
@@ -59,3 +59,13 @@ async def update_menu(
 ):
     await Menu.filter(id=menu_id).update(**menu.dict())
     return APIResponse()
+
+
+# 6 查询菜单树
+@router.get('/tree/menus',description="查询所有菜单")
+async def get_tree_list_menu(
+     # user: UserInfo = Depends(get_current_user)
+):
+    menus = await Menu.filter(is_delete=False,pid=None).all().prefetch_related("children")
+    menu_dicts = [await MenuOutTreeSchema.from_orm_recursive(menu) for menu in menus]
+    return APIResponse(results=menu_dicts)

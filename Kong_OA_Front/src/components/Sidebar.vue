@@ -56,4 +56,14 @@ function selectMenu(item) {
 .el-menu-vertical-demo {
   height: 100vh;
 }
+
+/* 去除router-link的下划线 */
+a {
+  text-decoration: none;
+}
+
+/* 确保router-link内部元素不显示下划线 */
+router-link {
+  text-decoration: none;
+}
 </style>

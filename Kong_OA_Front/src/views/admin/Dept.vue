@@ -39,7 +39,7 @@
       <el-table-column prop="create_time" label="创建时间"> </el-table-column>
       <el-table-column prop="icon" label="操作">
         <template #default="scope">
-          <el-button type="text" @click="editHandle(scope.row.id)"
+          <el-button link @click="editHandle(scope.row.id)"
             >编辑</el-button
           >
           <el-divider direction="vertical"></el-divider>

@@ -1,8 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
-from src.apps.system.models import Dept
-from src.apps.system.schemas import DeptOutSchema, DeptInSchema
+from src.apps.system.models import Dept, UserInfo
+from src.apps.system.schemas import DeptOutSchema, DeptInSchema, DeptOutTreeSchema
 from src.utils.common_response import APIResponse
+from ..core import get_current_user
 
 router = APIRouter()
 
@@ -87,3 +88,13 @@ async def update_dept(
     # 修改部门
     await Dept.filter(id=dept_id).update(**dept.dict())
     return APIResponse(msg='修改部门成功')
+
+
+#### 给角色页面使用，获取部门树的接口
+@router.get("/tree/depts", description="查询部门树")
+async def get_dept_list_tree(
+    user: UserInfo = Depends(get_current_user)
+):
+    menus = await Dept.filter(is_delete=False,pid=None).all().prefetch_related('children')
+    menu_dicts = [await DeptOutTreeSchema.from_orm_recursive(menu) for menu in menus]
+    return APIResponse(results=menu_dicts)

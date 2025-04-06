@@ -31,36 +31,6 @@ const router = createRouter({
           name: "Index",
           component: Index,
         },
-        // {
-        //     path: '/info',
-        //     name: 'Info',
-        //     component: Info
-        // },
-        // {
-        //     path: '/job',
-        //     name: 'Job',
-        //     component: Job
-        // },
-        // {
-        //     path: '/user',
-        //     name: 'User',
-        //     component: User
-        // },
-        // {
-        //     path: '/role',
-        //     name: 'Role',
-        //     component: Role
-        // },
-        // {
-        //     path: '/menu',
-        //     name: 'Menu',
-        //     component: Menu
-        // },
-        // {
-        //     path: '/dept',
-        //     name: 'Dept',
-        //     component: Dept
-        // }
       ],
     },
     {

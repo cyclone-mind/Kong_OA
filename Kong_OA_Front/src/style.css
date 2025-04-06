@@ -7,3 +7,12 @@ html, body {
 #app {
   min-height: 100%;
 }
+
+/* 移除所有router-link和a标签的下划线 */
+a, 
+router-link, 
+a:hover, 
+a:visited, 
+a:active {
+  text-decoration: none !important;
+}

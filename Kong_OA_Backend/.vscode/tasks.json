@@ -1,0 +1,48 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "启动 FastAPI 项目",
+      "type": "shell",
+      "command": "python main.py",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [],
+      "options": {
+        "env": {
+          "PYTHONIOENCODING": "UTF-8"
+        }
+      }
+    },
+    {
+      "label": "重启 FastAPI 项目",
+      "type": "shell",
+      // 命令解释:
+      // taskkill /f - 强制终止进程，不提示
+      // /im python.exe - 按进程名称匹配，终止所有python.exe进程
+      // /t - 同时终止指定进程及其子进程树
+      // ; - PowerShell命令分隔符
+      // if($?) - 检查前一命令是否成功执行
+      // { python main.py } - 如果终止成功，启动FastAPI应用
+      "command": "taskkill /f /im python.exe /t; if($?) { python main.py }",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [],
+      "options": {
+        "env": {
+          "PYTHONIOENCODING": "UTF-8"
+        }
+      }
+    }
+  ]
+}

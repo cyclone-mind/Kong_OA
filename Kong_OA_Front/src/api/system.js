@@ -13,11 +13,12 @@ export const reqCreateJob=(data)=>request.post('system/job/jobs',{...data})
 
 
 // 角色相关
-export const reqRoleList=()=>request.get('system/role/jobs')
+export const reqRoleList=()=>request.get('system/role/roles')
 export const reqRole=(role_id)=>request.get(`system/role/roles/${role_id}`)
-export const reqUpdateRole=(role_id)=>request.put(`system/role/roles/${role_id}`)
+export const reqUpdateRole=(role_id,data)=>request.put(`system/role/roles/${role_id}`,{...data})
 export const reqDeleteRole=(ids)=>request.delete('system/role/roles/',{data:ids})
 export const reqCreateRole=(data)=>request.post('system/role/roles',{...data})
+export const reqDeptTreeList=()=>request.get('system/dept/tree/depts')
 
 // 部门相关
 export const reqDeptList=()=>request.get('system/dept/depts')
@@ -29,6 +30,8 @@ export const reqCreateDept=(data)=>request.post('system/dept/depts',{...data})
 // 菜单相关
 export const reqMenuList=()=>request.get('system/menu/menus')
 export const reqMenu=(menu_id)=>request.get(`system/menu/menus/${menu_id}`)
-export const reqUpdateMenu=(menu_id)=>request.put(`system/menu/menus/${menu_id}`)
+export const reqUpdateMenu=(menu_id, data)=>request.put(`system/menu/menus/${menu_id}`,{...data})
 export const reqDeleteMenu=(ids)=>request.delete('system/menu/menus',{data:ids})
 export const reqCreateMenu=(data)=>request.post('system/menu/menus',{...data})
+export const reqMenuTreeList=()=>request.get('system/menu/tree/menus')
+

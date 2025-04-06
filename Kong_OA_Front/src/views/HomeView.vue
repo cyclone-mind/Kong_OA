@@ -6,7 +6,7 @@
       >
 
       <div class="header-avatar">
-        <el-avatar size="medium" src="src\assets\img\logo.jpg"></el-avatar>
+        <el-avatar size="default" src="src\assets\img\logo.jpg"></el-avatar>
         <el-dropdown style="color: aliceblue">
           <span class="el-dropdown-link">
             Shouyu<el-icon class="el-icon--right"><arrow-down /></el-icon>
@@ -15,7 +15,7 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item
-                ><router-link to="/user_info"
+                ><router-link to=""
                   >个人中心</router-link
                 ></el-dropdown-item
               >
