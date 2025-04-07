@@ -109,7 +109,7 @@ async function reqMenusFunc() {
 如果token为空，访问任何页面，都重定向到login
 to:去哪个路由对象，from是从哪个路由对象过来，next是个函数，如果允许它跳转，直接执行next() 
 */
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   let token = $cookie.get("token");
   // 拿到 pinia 对象, 这个初始化不能放在外面，因为如果放在外面，在main.js中导入import router from './router'时，会重复初始化
   let menusStore = definedMenus();
@@ -121,9 +121,21 @@ router.beforeEach((to, from, next) => {
     // 重定向到login
     next({ path: "/login" });
   } else if (token && !hasRoute) {
-    //token 有值：登录了，但是hasRoute为false，说明没有获取过动态菜单路由
+    //token 有值：登录了，但是 hasRoute 为false，说明没有获取过动态菜单路由
     // 发送请求获取动态菜单路由
-    reqMenusFunc();
+    try {
+      // 发送请求获取动态菜单路由，并等待它完成
+      await reqMenusFunc();
+      // 动态路由已添加，现在重试原始导航请求
+      // 使用 {...to, replace: true} 来确保导航到原始目标路径
+      // replace: true 可避免在历史记录中留下重复记录
+      next({ ...to, replace: true });
+    } catch (error) {
+      console.error("加载动态路由失败:", error);
+      // 可选：处理错误，例如清除 token 并重定向到登录页
+      // $store.log_out(); // 假设 user store 有 log_out action
+      next({ path: "/login" });
+    }
   }
   next();
 });

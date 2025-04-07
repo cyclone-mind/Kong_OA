@@ -3,10 +3,10 @@
   <div class="btn-area">
     <span>角色列表</span>
     <div>
-      <el-button type="primary" @click="dialogVisible = true"
+      <el-button type="primary" @click="dialogVisible = true" v-if="hasAuth('role:add')"
         >新建角色</el-button
       >
-      <el-button type="danger" @click="delHandle()">批量删除</el-button>
+      <el-button type="danger" @click="delHandle()"v-if="hasAuth('role:delete')" >批量删除</el-button>
     </div>
   </div>
   <el-divider border-style="dashed" />
@@ -39,12 +39,12 @@
       </el-table-column>
       <el-table-column prop="icon" label="操作">
         <template #default="scope">
-          <el-button type="text" @click="permHandle(scope.row.id)"
+          <el-button link @click="permHandle(scope.row.id)" v-if="hasAuth('role:permission')"
             >分配权限</el-button
           >
           <el-divider direction="vertical"></el-divider>
 
-          <el-button type="text" @click="editHandle(scope.row.id)"
+          <el-button link @click="editHandle(scope.row.id)" v-if="hasAuth('user:role')"
             >编辑</el-button
           >
           <el-divider direction="vertical"></el-divider>
@@ -161,6 +161,7 @@ import {
   reqMenuTreeList,
 } from "../../api/system.js";
 import { ElMessage } from "element-plus";
+import {hasAuth} from "../../routers/utils.js";
 // #######定义变量#############
 // 1.1 角色页面多选checkbox
 const multipleSelection = ref([]);

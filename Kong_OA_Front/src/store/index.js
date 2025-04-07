@@ -10,6 +10,6 @@ export const definedMain = defineStore(
         getters: {
         },
         actions: {
-        }
+        },
     }
 )

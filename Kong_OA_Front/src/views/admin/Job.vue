@@ -3,10 +3,10 @@
   <div class="btn-area">
     <span>岗位列表</span>
     <div>
-      <el-button type="primary" @click="dialogVisible = true"
+      <el-button type="primary" @click="dialogVisible = true" v-if="hasAuth('job:add')"
         >新增岗位</el-button
       >
-      <el-button type="danger" @click="delHandle()">批量删除</el-button>
+      <el-button type="danger" @click="delHandle()" v-if="hasAuth('job:delete')">批量删除</el-button>
     </div>
   </div>
   <el-divider border-style="dashed" />
@@ -36,13 +36,13 @@
       </el-table-column>
       <el-table-column prop="icon" label="操作">
         <template #default="scope">
-          <el-button link @click="editHandle(scope.row.id)"
+          <el-button link @click="editHandle(scope.row.id)" v-if="hasAuth('job:update')"
             >编辑</el-button
           >
           <el-divider direction="vertical"></el-divider>
           <el-popconfirm
             title="你确定删除吗?"
-            @confirm="delHandle(scope.row.id)"
+            @confirm="delHandle(scope.row.id)" v-if="hasAuth('job:delete')"
           >
             <template #reference>
               <el-button link type="danger">删除</el-button>
@@ -99,6 +99,7 @@ import {
   reqCreateJob,
 } from "../../api/system.js";
 import { ElMessage } from "element-plus";
+import { hasAuth } from "../../routers/utils.js";
 
 // 左侧checkbox--》多选
 const multipleSelection = ref([]);

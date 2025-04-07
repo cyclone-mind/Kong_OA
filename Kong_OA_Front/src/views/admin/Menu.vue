@@ -3,7 +3,7 @@
   <div class="btn-area">
     <span>菜单列表</span>
     <div>
-      <el-button type="primary" @click="opendialog()"
+      <el-button type="primary" @click="opendialog()" v-if="hasAuth('menu:add')"
         >新增菜单</el-button
       >
     </div>
@@ -51,14 +51,14 @@
       </el-table-column>
       <el-table-column prop="icon" label="操作">
         <template #default="scope">
-          <el-button link @click="editHandle(scope.row.id)"
+          <el-button link @click="editHandle(scope.row.id)" v-if="hasAuth('menu:update')"
             >编辑</el-button
           >
           <el-divider direction="vertical"></el-divider>
 
           <el-popconfirm
             title="你确定删除吗?"
-            @confirm="delHandle(scope.row.id)"
+            @confirm="delHandle(scope.row.id)" v-if="hasAuth('menu:delete')"
           >
             <template #reference>
               <el-button link type="danger">删除</el-button>
@@ -169,6 +169,8 @@ import {
   reqMenuTreeList,
 } from "../../api/system.js";
 import { ElMessage } from "element-plus";
+import { hasAuth } from "../../routers/utils.js";
+// #######定义变量#############
 
 const tableData = ref([]);
 // 对话框功能

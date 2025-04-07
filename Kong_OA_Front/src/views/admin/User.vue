@@ -26,9 +26,9 @@
   <div class="area-btn">
     <span>用户列表</span>
     <div>
-      <el-button type="primary" @click="dialogVisible=true" >新增</el-button>
-      <el-button type="success" @click="deleteHandle()">批量删除</el-button>
-      <el-button type="warning" @click="lockUsersHandle()">批量停用</el-button>
+      <el-button type="primary" @click="dialogVisible=true" v-if="hasAuth('user:add')">新增</el-button>
+      <el-button type="success" @click="deleteHandle()" v-if="hasAuth('user:delete')">批量删除</el-button>
+      <el-button type="warning" @click="lockUsersHandle()" v-if="hasAuth('user:lock')">批量停用</el-button>
 
     </div>
   </div>
@@ -73,17 +73,17 @@
 
       <el-table-column width="300px" label="操作">
         <template #default="scope">
-          <el-button link type="primary" @click="setRoles(scope.row.id)" >分配角色
+          <el-button link type="primary" @click="setRoles(scope.row.id)" v-if="hasAuth('user:role')">分配角色
           </el-button>
           <el-divider direction="vertical"></el-divider>
           <el-popconfirm title="你确定重置密码为123456吗?" @confirm="resetPassword(scope.row.id)"
                          >
             <template #reference>
-              <el-button link type="primary">重置密码</el-button>
+              <el-button link type="primary" v-if="hasAuth('user:resetpassword')">重置密码</el-button>
             </template>
           </el-popconfirm>
           <el-divider direction="vertical"></el-divider>
-          <el-button link type="primary" @click="handleEdit(scope.row.id)">编辑
+          <el-button link type="primary" @click="handleEdit(scope.row.id)" v-if="hasAuth('user:update')">编辑
           </el-button>
           <el-divider direction="vertical"></el-divider>
           <el-popconfirm title="你确定删除吗?" @confirm="deleteHandle(scope.row.id)">
@@ -233,6 +233,7 @@ import {
 } from "../../api/user.js";
 import {ElMessage} from "element-plus";
 import {reqDeptTreeList, reqJobList, reqRoleList} from "../../api/system.js";
+import {hasAuth} from "../../routers/utils.js";
 
 // ###变量定义###
 // 1.1 搜索条件

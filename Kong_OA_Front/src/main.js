@@ -5,14 +5,14 @@ import "./style.css"
 import App from './App.vue'
 // 导入路由配置文件 routers.js
 import router from './routers'
-
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import "bootstrap/dist/css/bootstrap.min.css"
 
 // 导入 Pinia 库的 createPinia 函数，用于创建 Pinia 实例
 import { createPinia } from 'pinia'
 // 创建 Pinia 实例
 let pinia = createPinia()
-
+pinia.use(piniaPluginPersistedstate)
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
