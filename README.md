@@ -10,6 +10,9 @@
 
 ![Pydantic](https://img.shields.io/badge/Pydantic-005571?logo=pydantic&logoColor=white)![Vue.js](https://img.shields.io/badge/Vue.js-35495E?logo=vue.js&logoColor=4FC08D)
 
+
+<span><a href="./README.en.md">English</a> | 中文</span>
+
 </div>
 
 > [!NOTE]
