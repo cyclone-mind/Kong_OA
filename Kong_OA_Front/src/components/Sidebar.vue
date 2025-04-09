@@ -16,6 +16,7 @@
     </router-link>
 
     <el-sub-menu :index="menu.name" v-for="menu in menuList">
+
       <template #title>
         <el-icon :size="20">
           <!-- 小图标动态变化,通过后端返回，动态路由-->
@@ -23,6 +24,7 @@
         </el-icon>
         <span>{{ menu.title }}</span>
       </template>
+
       <el-menu-item-group>
         <router-link :to="item.path" v-for="item in menu.children">
           <el-menu-item :index="item.name" @click="selectMenu(item)">
@@ -33,6 +35,7 @@
           </el-menu-item>
         </router-link>
       </el-menu-item-group>
+      
     </el-sub-menu>
   </el-menu>
 </template>

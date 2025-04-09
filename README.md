@@ -59,7 +59,7 @@
 ### 前端启动
 
 ```bash
-cd frontend
+cd Kong_OA_Front
 npm install
 npm run dev
 ```
@@ -67,8 +67,9 @@ npm run dev
 ### 后端启动
 
 ```bash
+cd Kong_OA_Backend
 pip install -r requirements.txt
-uvicorn main:app --reload
+python main.py
 ```
 
 ## 项目结构
