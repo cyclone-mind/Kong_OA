@@ -11,7 +11,7 @@ router = APIRouter()
 # 1 查询所有部门
 @router.get("/depts", description="查询所有部门")
 async def get_dept_list(
-        # user: UserInfo = Depends(get_current_user)
+        user: UserInfo = Depends(get_current_user)
 ):
     # 部门，分父级和子级---》到时候要加过滤条件--》只查出没有父级的部门--》最顶级部门
 
@@ -42,7 +42,7 @@ async def get_dept_list(
 @router.get("/depts/{dept_id}", description="查询单个部门")
 async def get_dept(
         dept_id: int,
-        # user: UserInfo = Depends(get_current_user)
+        user: UserInfo = Depends(get_current_user)
 ):
     dept = await Dept.filter(id=dept_id).first().prefetch_related('children')
     if not dept:
@@ -55,10 +55,10 @@ async def get_dept(
 @router.post("/depts", description="新增部门")
 async def add_dept(
         dept: DeptInSchema,
-        # user: UserInfo = Depends(get_current_user)
+        user: UserInfo = Depends(get_current_user)
 ):
     # **dept.dict()将dept对象的属性作为关键字参数传递给Dept.create方法
-    dept = await Dept.create(**dept.dict())
+    dept = await Dept.create(**dept.dict(), create_by=user.username, update_by=user.username)
     if dept:
         return APIResponse(msg='新增部门成功')
     else:
@@ -69,12 +69,12 @@ async def add_dept(
 @router.delete("/depts", description="删除一个或多个部门")
 async def delete_dept(
         ids: list[int],
-        # user: UserInfo = Depends(get_current_user)
+        user: UserInfo = Depends(get_current_user)
 ):
     # 删除多个部门
     # await Dept.filter(id__in=ids).delete()
     # 删除单个部门
-    await Dept.filter(id__in=ids).update(is_delete=True)  # 软删除
+    await Dept.filter(id__in=ids).update(is_delete=True, update_by=user.username)  # 软删除
     return APIResponse(msg='删除部门成功')
 
 
@@ -83,10 +83,10 @@ async def delete_dept(
 async def update_dept(
         dept_id: int,
         dept: DeptInSchema,
-        # user: UserInfo = Depends(get_current_user)
+        user: UserInfo = Depends(get_current_user)
 ):
     # 修改部门
-    await Dept.filter(id=dept_id).update(**dept.dict())
+    await Dept.filter(id=dept_id).update(**dept.dict(), update_by=user.username)
     return APIResponse(msg='修改部门成功')
 
 
