@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
+
 from src.settings import setting
 
 DB_ORM_CONFIG = {
@@ -21,7 +22,7 @@ DB_ORM_CONFIG = {
     },
     "apps": {
         'models': {
-            'models': ['src.apps.system.models', 'src.apps.oa.models',"aerich.models"],  # aerich.models迁移模型
+            'models': ['src.apps.system.models', 'src.apps.oa.models', "aerich.models"],  # aerich.models迁移模型
             'default_connection': 'default',
         }
 
@@ -32,4 +33,4 @@ DB_ORM_CONFIG = {
 
 
 def register_mysql(app: FastAPI):
-    register_tortoise(app,config=DB_ORM_CONFIG)
+    register_tortoise(app, config=DB_ORM_CONFIG)

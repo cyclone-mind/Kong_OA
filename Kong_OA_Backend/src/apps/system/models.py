@@ -1,4 +1,4 @@
-from tortoise import Model, fields
+from tortoise import fields
 from passlib.context import CryptContext
 from src.utils.common_model import BaseModel
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

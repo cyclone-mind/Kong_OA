@@ -56,6 +56,29 @@
 - Node.js 16+
 - MySQL 5.7+
 
+### 环境配置
+
+项目使用`.env`文件进行环境配置，在启动项目前需要正确设置环境变量。
+
+1. 在`Kong_OA_Backend/src`目录下找到`.env.example`文件
+2. 复制该文件并重命名为`.env`
+3. 根据您的实际环境填写配置参数
+
+```bash
+# 应用服务配置
+APP_PORT=8080            # 应用运行端口
+APP_HOST=127.0.0.1       # 应用运行主机
+
+# 数据库配置
+DB_HOST=127.0.0.1        # 数据库主机地址
+DB_USER=root             # 数据库用户名
+DB_PASSWORD=yourpassword # 数据库密码
+DB_PORT=3306             # 数据库端口
+DB_DATABASE=kong_oa      # 数据库名称
+```
+
+注意：`.env`文件包含敏感信息，已被添加到`.gitignore`文件中，不会被提交到代码仓库。请确保在部署时正确配置此文件。
+
 ### 前端启动
 
 ```bash
