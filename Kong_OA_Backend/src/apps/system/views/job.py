@@ -52,7 +52,7 @@ async def get_job(
 
 # 6 修改一个岗位
 @router.put('/jobs/{job_id}', description='修改一个岗位')
-async def get_job(
+async def update_job(
         job_id: int,  # /Jobs/1-->修改id为1的岗位详情
         job: JobInSchema,
         user: UserInfo = Depends(get_current_user)

@@ -44,7 +44,7 @@ async def get_dept(
         dept_id: int,
         user: UserInfo = Depends(get_current_user)
 ):
-    dept = await Dept.filter(id=dept_id).first().prefetch_related('children')
+    dept = await Dept.filter(id=dept_id).prefetch_related('children').first()
     if not dept:
         raise Exception('部门不存在')
     dept_dict = await DeptOutSchema.from_orm_recursive(dept)
